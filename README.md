@@ -1,3 +1,23 @@
+Az adatbázis tervezés: két különböző adattáblát készítettem
+1: A projectek tárolása gyakorlatilag csak a project_name oszlop van benne.
+2: A projectekhez tartozó idősávok és commentek tárolása, itt van egy a project_id egy project_start és egy project_end oszlop plusz a project_command.
+
+A működési elv kezdő oldalon elég egyszerű, egyből megjelenik egy input mező ami ha nem üres akkor a beírt szöveget enter megnyomásával menti a projectek közé. (Project_name)
+Alatta listázza az összes projectet pagination-el, (ha lenne authetikáció akkor természetesen egy user_id ellenőrzést bevezetnénk de most tesztjelleg miatt nincs ilyen.
+
+Az adott projectre kattintva fejlön a project modal ablaka ami tartalmazza az adott project idősávjához tartozó számlálót HH:MM:SS formátumban, alatta egy comment multiline mezővel és start/stop gombokkal.
+
+Működési elv:
+Amikor megnyitjuk ezt a project modal-t az azonnal létrehoz egy idősáv rekordot az adott projecthez, ekkor az adatbázisban még minden oszlop null értékű kivéve a project_id-t és vissza adja a kliensnek a létrehozott idősáv rekord primary id-jét.
+Amikor a start gombot megnyomjuk akkor patch metódussal updateli a start időpontot akkor ha a számláló 0 (ha ez nem lenne akkor minden alkalommal felül irná a start időpontot ami nem jó).
+Amikor a stop gombot megnyomjuk akkor szintén updatel csak ilyenkor a project_end et fogja abban az esetben ha a számláló éppen folyamatban volt, ha már áll a számláló akkor nem updatel a stop gomb hiszen az megint csak hibás működés lenne.
+A modal ablak X azaz bezárás gombja szintén updateli a project_end oszlopot amennyiben a számláló nem volt megállítva, ha meg volt már állítva akkor nem csinál semmit.
+A comment mező csak akkor updateli a project_commentet amikor elveszti a fókuszt vagy a start gomb lenyomásakor. Ez különállóan tud updatelni a start és stop gomboktól.
+
+Azért volt szükség erre a logikára mert a tesztfeladat leírása szerint minden idősáv rekordhoz saját comment szekció kell. És különálló mentési logika.
+
+Az export gombról nehéz ódákat irni, a controllerben látott logika alapján lekéri az adatokat és megjeleníti azokat egy modal ablakban.
+
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
 <p align="center">
