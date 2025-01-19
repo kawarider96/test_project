@@ -1,6 +1,6 @@
 Az adatbázis tervezés: két különböző adattáblát készítettem
 1: A projectek tárolása gyakorlatilag csak a project_name oszlop van benne.
-2: A projectekhez tartozó idősávok és commentek tárolása, itt van egy a project_id egy project_start és egy project_end oszlop plusz a project_command.
+2: A projectekhez tartozó idősávok és commentek tárolása, itt van egy a project_id egy project_start és egy project_end oszlop plusz a project_comment.
 
 A működési elv kezdő oldalon elég egyszerű, egyből megjelenik egy input mező ami ha nem üres akkor a beírt szöveget enter megnyomásával menti a projectek közé. (Project_name)
 Alatta listázza az összes projectet pagination-el, (ha lenne authetikáció akkor természetesen egy user_id ellenőrzést bevezetnénk de most tesztjelleg miatt nincs ilyen.
